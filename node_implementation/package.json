@@ -1,0 +1,21 @@
+{
+  "name": "node_implementation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json",
+    "test": "npm run build && mocha build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.7.7",
+    "axios": "^0.19.2",
+    "mocha": "^7.1.0",
+    "npm": "^6.14.2",
+    "typescript": "^3.8.3"
+  }
+}
