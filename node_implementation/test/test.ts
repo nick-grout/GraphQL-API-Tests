@@ -1,4 +1,5 @@
 import { strict as assert } from 'assert';
+import { request } from 'graphql-request'
 import axios from 'axios';
 
 const ENDPOINT = 'https://api.graph.cool/simple/v1/swapi'
@@ -25,21 +26,33 @@ describe('All Persons Doc', function() {
                         }
                     }
                 `
-                axios({
-                    method: 'POST',
-                    url: ENDPOINT,
-                    headers: HEADERS,
-                    data: {
-                        query,
-                        variables: {name: test.arg}
-                    },
-                }).then(res => {
-                    assert.ok(!('errors' in res.data), `errors found in response: ${JSON.stringify(res.data['errors'])}`);
-                    assert.equal(res.data['data']['allPersons']['hairColor'][0], test.expected)
+                request(ENDPOINT, query, {name: test.arg}).then(data => {
+                    assert.equal(data.allPersons.hairColor[0], test.expected)
                     done();
                 })
                 .catch(err => done(err))
             });
         });
     });
+    describe('Set Height', function() {
+        it('can set the height', function(done) {
+            const mutation = `
+                mutation ChangePersonsHeight($id: ID!, $height:Int) {
+                    updatePerson(id:$id, height:$height) {
+                    height
+                    }
+                }
+            `
+            const variables = {
+                'id':'cj0nv9p8yewci0130wjy4o5fa',
+                'height': 20
+            }
+            request(ENDPOINT, mutation, variables).then(data => {
+                console.log('request: ', JSON.stringify(data, undefined, 2));
+                done();
+            }).catch(err => {
+                done(err);
+            })
+        })
+    })
 });

@@ -33,3 +33,26 @@ class TestGetHairColor:
         data = gql_client.execute(query=TestGetHairColor.QUERY, variables={"name": "Chewbacca"})
         data = json.loads(data)
         assert data['data']['allPersons']['hairColor'][0] == 'BROWN'
+
+
+class TestSetHeight:
+    QUERY = """
+        mutation ChangePersonsHeight($id: ID!, $height:Int) {
+            updatePerson(id:$id, height:$height) {
+                height
+            }
+        }
+    """
+
+    @staticmethod
+    def test_set_lukes_height(gql_client: GraphQLClient):
+        """ Test that we can set Luke's height """
+        variables = {
+            'id': 'cj0nv9p8yewci0130wjy4o5fa',
+            'height': 20
+        }
+        data = gql_client.execute(query=TestSetHeight.QUERY, variables=variables)
+        data = json.loads(data)
+        assert 'errors' not in data, data['errors']
+        assert data['data']['allPersons']['height'][0] == variables['height']
+
