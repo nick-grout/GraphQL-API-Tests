@@ -11,19 +11,25 @@ def gql_client() -> GraphQLClient:
     return client
 
 
-class TestAllPersons:
-    @staticmethod
-    def test_get_hair_color(gql_client: GraphQLClient):
-        query = """
-            query PersonNameAndHairColor($name:String) {
-                allPersons: Person(name:$name) {
-                    name
-                    hairColor
-                }
+class TestGetHairColor:
+    QUERY = """
+        query PersonNameAndHairColor($name:String) {
+            allPersons: Person(name:$name) {
+                name
+                hairColor
             }
-        """
-        data = gql_client.execute(query=query, variables={"name": "Luke Skywalker"})
+        }
+    """
+    @staticmethod
+    def test_lukes_hair(gql_client: GraphQLClient):
+        """ Luke's hair color should be BROWN """
+        data = gql_client.execute(query=TestGetHairColor.QUERY, variables={"name": "Luke Skywalker"})
         data = json.loads(data)
-        # Expect
-        # {'data': {'allPersons': {'name': 'Luke Skywalker', 'hairColor': ['BLONDE']}}}
         assert data['data']['allPersons']['hairColor'][0] == 'BLONDE'
+    
+    @staticmethod
+    def test_chewbaccas_hair(gql_client: GraphQLClient):
+        """ Chewbacca's hair color should be BROWN """
+        data = gql_client.execute(query=TestGetHairColor.QUERY, variables={"name": "Chewbacca"})
+        data = json.loads(data)
+        assert data['data']['allPersons']['hairColor'][0] == 'BROWN'
