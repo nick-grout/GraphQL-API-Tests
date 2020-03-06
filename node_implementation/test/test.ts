@@ -2,10 +2,6 @@ import { strict as assert } from 'assert';
 import { request } from 'graphql-request'
 
 const ENDPOINT = 'https://api.graph.cool/simple/v1/swapi'
-const HEADERS = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-}
 
 describe('All Persons Doc', function() {
     this.slow(300);
