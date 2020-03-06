@@ -1,6 +1,5 @@
 import { strict as assert } from 'assert';
 import { request } from 'graphql-request'
-import axios from 'axios';
 
 const ENDPOINT = 'https://api.graph.cool/simple/v1/swapi'
 const HEADERS = {
