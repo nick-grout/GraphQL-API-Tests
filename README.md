@@ -1,9 +1,9 @@
 # Example of a GraphQL API testing framework
 
-This repository contains two example frameworks, one in Python and the other in
-Typescript (using Nodejs).
+This repository contains two possible test frameworks, one in Python and the other in
+Typescript (using Nodejs). They query an API to get details on star wars characters.
 
-Both of these frameworks have their benefits and drawbacks. 
+These tests use the GraphQL playground api, which can be found [here](https://api.graph.cool/simple/v1/swapi).
 
 ## Python
 
@@ -17,7 +17,7 @@ pytest
 
 ## Nodejs
 
-This ipmlementation uses `Typescript`, `mocha`, and `axios`. To run the tests run:
+This implementation uses `Typescript`, `mocha`, and `axios`. To run the tests run:
 
 ```bash
 cd node_implementation
